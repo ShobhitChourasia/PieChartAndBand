@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'PieChartAndBand_Example' do
+  pod 'PieChartAndBand', :path => '../'
+
+  target 'PieChartAndBand_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
