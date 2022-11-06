@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'PieChartAndBand'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of PieChartAndBand.'
+  s.summary          = 'This library help you create simple circular meter (like a speedometer) and a band view'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,21 +17,19 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+  s.description      = 'The library is build to create simple pie charts and band bars, to help devs simplify their work if they need similar stuffs. This is the basic implementation I have done here in a just a couple of days. Will be doing some more customisations to it in some time. Meanwhile if you need any customisation to it, please reach out to me over email: shobhit_chou@yahoo.com. I will try to get it done ASAP. Cheers.'
 
-  s.homepage         = 'https://github.com/Shobhit Chourasia/PieChartAndBand'
+  s.homepage         = 'https://github.com/ShobhitChourasia/PieChartAndBand'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Shobhit Chourasia' => 'shobhit_chou@yahoo.com' }
-  s.source           = { :git => 'https://github.com/Shobhit Chourasia/PieChartAndBand.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/ShobhitChourasia/PieChartAndBand.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '12.0'
 
   s.source_files = 'PieChartAndBand/Classes/**/*'
-  
+  s.swift_version = '5.0'
   # s.resource_bundles = {
   #   'PieChartAndBand' => ['PieChartAndBand/Assets/*.png']
   # }
