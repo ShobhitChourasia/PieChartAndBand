@@ -1,6 +1,6 @@
 # PieChartAndBand
 
-[![CI Status](https://img.shields.io/travis/ShobhitChourasia/PieChartAndBand.svg?style=flat)](https://travis-ci.org/Shobhit Chourasia/PieChartAndBand)
+[![CI Status](https://img.shields.io/travis/ShobhitChourasia/PieChartAndBand.svg?style=flat)](https://travis-ci.org/ShobhitChourasia/PieChartAndBand)
 [![Version](https://img.shields.io/cocoapods/v/PieChartAndBand.svg?style=flat)](https://cocoapods.org/pods/PieChartAndBand)
 [![License](https://img.shields.io/cocoapods/l/PieChartAndBand.svg?style=flat)](https://cocoapods.org/pods/PieChartAndBand)
 [![Platform](https://img.shields.io/cocoapods/p/PieChartAndBand.svg?style=flat)](https://cocoapods.org/pods/PieChartAndBand)
