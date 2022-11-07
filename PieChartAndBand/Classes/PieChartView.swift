@@ -171,7 +171,7 @@ private extension ViewDecorator {
         animation.toValue = toValue
         animation.duration = pieMeterAnimationDuration
         animation.isRemovedOnCompletion = false
-        animation.fillMode = .forwards
+//        animation.fillMode = CAMediaTimingFillMode.forwards
         
         shapeLayer.add(animation, forKey: "animation")
     }
