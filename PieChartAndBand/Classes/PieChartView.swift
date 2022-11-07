@@ -7,23 +7,93 @@
 
 import UIKit
 
-public class PieChartView: UIView {
-    public var startValue: CGFloat = 0 
-    public var endValue: CGFloat = 1 // Should be greater than end value
-    public var highlightValue: CGFloat = 0 // Default to start value
+final public class PieChartView: UIView {
     
+    /**
+     * Specifies the start value of the meter.
+     */
+    public var startValue = 0
+    
+    /**
+     * Specifies the end or last value of the meter.
+     * Should be greater than end value.
+     */
+    public var endValue = 1
+    
+    /**
+     * Specifies the value to be highlighted on the meter.
+     */
+    public var highlightValue = 0
+    
+    /**
+     * Specifies angle or position where the pie meter should start.
+     * Defaults to 0. Use .pi to go clockwise. .pi = 180 degree.
+     */
     public var startAngleForPieLayer: CGFloat = .pi * 0.5
+    
+    /**
+     * Specifies angle or position where the pie meter should end.
+     * Defaults to 0. Use .pi to go clockwise. .pi = 180 degree.
+     */
     public var endAngleForPieLayer: CGFloat = .pi * 2
+    
+    /**
+     * Specifies angle or position where the pie meter tracker should start.
+     * Defaults to 0. Use .pi to go clockwise. .pi = 180 degree.
+     */
     public var endAngleForTrackLayer: CGFloat = .pi * 2
     
-    public var pieRadius: CGFloat = 150
+    /**
+     * Specifies the line width of pie meter.
+     * Defaults to 25.
+     */
+    public var pieMeterLineWidth: CGFloat = 25
     
+    /**
+     * Specifies the line width of pie meter tracker.
+     * Defaults to 20.
+     */
+    public var pieMeterTrackerLineWidth: CGFloat = 20
+    
+    /**
+     * Specifies angle or position where the pie meter should start.
+     * Defaults to 0. Use .pi to go clockwise. .pi = 180 degree.
+     */
+    public var pieRadius: CGFloat = 50
+    
+    /**
+     * Defines the default stroke colour.
+     * Defaults to gray.
+     */
+    public var defaultStrokeColor: UIColor = .gray
+    
+    /**
+     * Defines the default default center label colour.
+     * Defaults to gray.
+     */
+    public var defaultCenterLabelColor: UIColor = .gray
+    
+    /**
+     * Array to take the various data ranges of band for meter
+     * Defaults is empty. Add values if you have to add custom colours.
+     */
+    public var bandDataArray: [(Int, Int)] = []
+    
+    /**
+     * Array to take the various colour ranges of band for meter
+     * Defaults is empty. Add values if you have to add custom colours.
+     */
+    public var bandColorArray: [UIColor] = []
+    
+    ///Private properties for configuration
     private var markerLabelHeight: CGFloat = 25
     private var markerLabelWidth: CGFloat = 100
     private var timer = Timer()
     private let shapeLayer = CAShapeLayer()
     private var circularPath = UIBezierPath()
     private var minValue = 0
+    private let numberAnimationTimerDuration: TimeInterval = 0.09
+    private let pieMeterAnimationDuration: CFTimeInterval = 1.3
     
     private let startMarkerLabel: UILabel = {
        let label = UILabel()
@@ -58,6 +128,10 @@ public class PieChartView: UIView {
         minValue = Int(startValue) - 1
     }
     
+    /**
+     * Use this method to create the pie meter.
+     * This internally draws, animates and add start and end labels to the pie by default.
+     */
     public func createPie() {
         drawPie()
         animatePie()
@@ -75,13 +149,13 @@ private extension ViewDecorator {
     func drawPie() {
         circularPath = UIBezierPath(arcCenter: center,
                                     radius: pieRadius,
-                                    startAngle: startAngleForPieLayer, //pi = 180 degree
+                                    startAngle: startAngleForPieLayer,
                                     endAngle: endAngleForPieLayer,
                                     clockwise: true)
         
         shapeLayer.path = circularPath.cgPath
         
-        shapeLayer.lineWidth = 25
+        shapeLayer.lineWidth = pieMeterLineWidth
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeEnd = 0
         
@@ -92,14 +166,23 @@ private extension ViewDecorator {
     func animatePie() {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         
-        let toValue = (highlightValue - startValue)/(endValue - startValue)
+        let toValue = CGFloat(highlightValue - startValue)/CGFloat(endValue - startValue)
         
         animation.toValue = toValue
-        animation.duration = 1.3
+        animation.duration = pieMeterAnimationDuration
         animation.isRemovedOnCompletion = false
-//        animation.fillMode = .forwards
+        animation.fillMode = kCAFillModeForwards
         
         shapeLayer.add(animation, forKey: "animation")
+    }
+    
+    func drawPieTrackLayer() {
+        let trackLayer = CAShapeLayer()
+        trackLayer.path = circularPath.cgPath
+        trackLayer.strokeColor = UIColor.gray.cgColor
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineWidth = pieMeterTrackerLineWidth
+        layer.addSublayer(trackLayer)
     }
     
     func createMarkerLabels() {
@@ -126,14 +209,6 @@ private extension ViewDecorator {
         centerLabel.center = center
     }
     
-    func drawPieTrackLayer() {
-        let trackLayer = CAShapeLayer()
-        trackLayer.path = circularPath.cgPath
-        trackLayer.strokeColor = UIColor.gray.cgColor
-        trackLayer.fillColor = UIColor.clear.cgColor
-        trackLayer.lineWidth = 20
-        layer.addSublayer(trackLayer)
-    }
 }
 
 private typealias AnimationHelper = PieChartView
@@ -141,7 +216,7 @@ private extension AnimationHelper {
     
     func animateNumber() {
         centerLabel.text = "\(Int(startValue))"
-        timer = Timer.scheduledTimer(withTimeInterval: 0.09, repeats: true, block: { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: numberAnimationTimerDuration, repeats: true, block: { _ in
             self.countUp()
         })
     }
@@ -153,11 +228,29 @@ private extension AnimationHelper {
             
             DispatchQueue.main.async {
                 self.centerLabel.text = "\(score)"
-                self.centerLabel.textColor = .red//self.colorForRange(creditRange: self.getRangeForScore(score: score))
-                self.shapeLayer.strokeColor = UIColor.green.cgColor//self.colorForRange(creditRange: self.getRangeForScore(score: score)).cgColor
+                self.centerLabel.textColor = self.animateColors(forScore: score) ?? self.defaultCenterLabelColor
+                self.shapeLayer.strokeColor = self.animateColors(forScore: score)?.cgColor ?? self.defaultStrokeColor.cgColor
             }
         } else {
             timer.invalidate()
         }
     }
+}
+
+private typealias ColorHelper = PieChartView
+private extension ColorHelper {
+    
+    func animateColors(forScore score: Int) -> UIColor? {
+        guard !bandColorArray.isEmpty &&
+                !bandDataArray.isEmpty &&
+                bandColorArray.count == bandDataArray.count else { return nil }
+        //score >= 825 && score <= 900
+        let index = bandDataArray.firstIndex(where: {
+            score >= $0.0 && score <= $0.1
+        })
+        
+        guard let index = index else { return bandColorArray[bandDataArray.count - 1] }
+        return bandColorArray[index]
+    }
+    
 }
