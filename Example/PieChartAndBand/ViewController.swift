@@ -20,7 +20,7 @@ class ViewController: UIViewController {
                                   UIColor(red: 255/255, green: 128/255, blue: 0/255, alpha: 1.0),
                                   UIColor(red: 206/255, green: 103/255, blue: 0/255, alpha: 1.0),
                                   UIColor(red: 204/255, green: 0/255, blue: 0/255, alpha: 1.0)]
-    private let highlightValue = 820
+    private let highlightValue = 860
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,7 @@ private extension BandViewHelper {
     func createBandView() {
         let bandView = BandView(frame: view.frame)
         bandView.highlightValue = highlightValue
-
+        bandView.bandHighlightedValueImage = .init(named: "arrow_left_thick_medium")
         bandView.createBands(bandDataArray: bandDataArray, bandColorArray: bandColorArray)
         bandView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bandView)

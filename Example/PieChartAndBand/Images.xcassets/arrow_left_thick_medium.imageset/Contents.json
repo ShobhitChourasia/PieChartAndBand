@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "arrow_fat_left_fill_icon_small.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "arrow_fat_left_fill_icon_medium.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "arrow_fat_left_fill_icon_medium 1.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
