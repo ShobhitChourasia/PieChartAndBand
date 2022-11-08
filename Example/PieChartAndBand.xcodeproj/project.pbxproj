@@ -19,6 +19,11 @@
 		EE74B974291A2DF70093D6F9 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE74B973291A2DF70093D6F9 /* DataManager.swift */; };
 		EE74B976291A35580093D6F9 /* PieBandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE74B975291A35580093D6F9 /* PieBandViewModel.swift */; };
 		EE74B97A291A3BB30093D6F9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE74B979291A3BB30093D6F9 /* Observable.swift */; };
+		EE74B97B291A58370093D6F9 /* PieBandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE74B975291A35580093D6F9 /* PieBandViewModel.swift */; };
+		EE74B97C291A583A0093D6F9 /* PieBandDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE74B96C291A280D0093D6F9 /* PieBandDataModel.swift */; };
+		EE74B97D291A58490093D6F9 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE74B979291A3BB30093D6F9 /* Observable.swift */; };
+		EE74B97E291A58510093D6F9 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE74B973291A2DF70093D6F9 /* DataManager.swift */; };
+		EE74B980291ABC1C0093D6F9 /* ColorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE74B97F291ABC1C0093D6F9 /* ColorMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +60,7 @@
 		EE74B973291A2DF70093D6F9 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		EE74B975291A35580093D6F9 /* PieBandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieBandViewModel.swift; sourceTree = "<group>"; };
 		EE74B979291A3BB30093D6F9 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		EE74B97F291ABC1C0093D6F9 /* ColorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				EE74B979291A3BB30093D6F9 /* Observable.swift */,
+				EE74B97F291ABC1C0093D6F9 /* ColorMapper.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -384,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				EE74B980291ABC1C0093D6F9 /* ColorMapper.swift in Sources */,
 				EE74B976291A35580093D6F9 /* PieBandViewModel.swift in Sources */,
 				EE74B974291A2DF70093D6F9 /* DataManager.swift in Sources */,
 				EE74B96D291A280D0093D6F9 /* PieBandDataModel.swift in Sources */,
@@ -396,6 +404,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE74B97D291A58490093D6F9 /* Observable.swift in Sources */,
+				EE74B97E291A58510093D6F9 /* DataManager.swift in Sources */,
+				EE74B97B291A58370093D6F9 /* PieBandViewModel.swift in Sources */,
+				EE74B97C291A583A0093D6F9 /* PieBandDataModel.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

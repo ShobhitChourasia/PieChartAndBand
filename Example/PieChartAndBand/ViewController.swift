@@ -35,7 +35,7 @@ private extension ViewModelHelper {
             self.highlightValue = pieBandDataModel?.creditScore ?? 0
             self.startValue = pieBandDataModel?.startValue ?? 0
             self.endValue = pieBandDataModel?.endValue ?? 0
-            self.bandColorArray = self.viewModel.bandColorArray.value
+            self.bandColorArray = ColorMapper.getColorFromMeta(standardMeta: pieBandDataModel?.standardMeta)
             self.bandDataArray = self.viewModel.bandDataArray.value
             DispatchQueue.main.async {
                 self.setupViews()
