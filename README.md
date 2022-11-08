@@ -9,7 +9,8 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
+## Sneak Peak
+![Simulator Screen Recording - iPhone 14 Pro - 2022-11-09 at 00 18 49](https://user-images.githubusercontent.com/22883274/200650030-dd9143db-1fa4-4fab-ad53-b7c88f845e75.gif)
 
 ## Installation
 
