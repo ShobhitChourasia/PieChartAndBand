@@ -71,9 +71,10 @@ public class BandView: UIView {
     /**
      * Use this method to create and pass data to band view.
      */
-    public func createBands(bandDataArray: [(Int, Int)], bandColorArray: [UIColor]) {
+    public func createBands(bandDataArray: [(Int, Int)], bandColorArray: [UIColor], bandPercentCoverage: [String]) {
         createBandView(bandDataArray: bandDataArray,
-                       bandColorArray: bandColorArray)
+                       bandColorArray: bandColorArray,
+                       bandPercentCoverage: bandPercentCoverage)
     }
 
 }
@@ -97,37 +98,38 @@ private extension ViewDecorator {
         ])
     }
     
-    func createBandView(bandDataArray: [(Int, Int)], bandColorArray: [UIColor]) {
+    func createBandView(bandDataArray: [(Int, Int)], bandColorArray: [UIColor], bandPercentCoverage: [String]) {
         for (index, item) in bandDataArray.enumerated() {
             let verticalContainerView = UIView(frame: CGRect(x: 0, y: 0, width: stackViewItemWidth, height: 0))
             verticalContainerView.backgroundColor = bandColorArray[index]
             verticalContainerView.translatesAutoresizingMaskIntoConstraints = false
             
-            // LABEL
-            let bandRangeLabel = UILabel()
-            bandRangeLabel.sizeToFit()
-            bandRangeLabel.text = "\(item.0) - \(item.1)"
-            bandRangeLabel.textColor = bandFontColor
-            bandRangeLabel.translatesAutoresizingMaskIntoConstraints = false
-            bandRangeLabel.font = bandLabelFont
+            //Left side percent view
+            let leftContainerView = setupLeftPercentView(withValue: bandPercentCoverage[index])
+            verticalContainerView.addSubview(leftContainerView)
             
+            // Range label
+            let bandRangeLabel = getCustomRangeLabel(color: bandFontColor,
+                                                     font: bandLabelFont,
+                                                     item: item)
             verticalContainerView.addSubview(bandRangeLabel)
             
             NSLayoutConstraint.activate([
                 verticalContainerView.widthAnchor.constraint(equalToConstant: verticalContainerView.frame.size.width),
                 
+                leftContainerView.topAnchor.constraint(equalTo: verticalContainerView.topAnchor),
+                leftContainerView.bottomAnchor.constraint(equalTo: verticalContainerView.bottomAnchor),
+                leftContainerView.leadingAnchor.constraint(equalTo: verticalContainerView.leadingAnchor),
+                leftContainerView.widthAnchor.constraint(equalToConstant: frame.size.width * 0.12),
+                
                 bandRangeLabel.centerYAnchor.constraint(equalTo: verticalContainerView.centerYAnchor),
-                bandRangeLabel.leadingAnchor.constraint(equalTo: verticalContainerView.leadingAnchor, constant: 8)
+                bandRangeLabel.leadingAnchor.constraint(equalTo: leftContainerView.trailingAnchor, constant: 8)
             ])
             
-            
-            //IMAGE
+            //Add Image, if available
             if highlightValue >= (item.0) && highlightValue <= (item.1) {
                 
                 let highlightValueLabel = getCustomizedHighlightLabel()
-                
-                let leftPercentLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-                
                 
                 if let bandImage = bandHighlightedValueImage {
                     let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -156,6 +158,10 @@ private extension ViewDecorator {
             verticalStackView.addArrangedSubview(verticalContainerView)
         }
     }
+}
+
+private typealias ViewDecoratorHelper = BandView
+private extension ViewDecoratorHelper {
     
     func getCustomizedHighlightLabel() -> UILabel {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -168,12 +174,34 @@ private extension ViewDecorator {
         return label
     }
     
-    func customizeLeftPercentLabel(label: UILabel, value: Int) {
-        label.sizeToFit()
-        label.text = "1%"
-        label.backgroundColor = .clear
-        label.textColor = bandHighlightFontColor
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = bandHighlightLabelFont
+    func setupLeftPercentView(withValue value: String?) -> UIView {
+        //Left side percent view
+        let leftContainerView = UIView(frame: .zero)
+        leftContainerView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+        leftContainerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let leftPercentLabel = UILabel(frame: .zero)
+        leftPercentLabel.text = value ?? ""
+        leftPercentLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        leftContainerView.addSubview(leftPercentLabel)
+        
+        NSLayoutConstraint.activate([
+            leftPercentLabel.centerXAnchor.constraint(equalTo: leftContainerView.centerXAnchor),
+            leftPercentLabel.centerYAnchor.constraint(equalTo: leftContainerView.centerYAnchor),
+        ])
+        return leftContainerView
     }
+    
+    func getCustomRangeLabel(color: UIColor, font: UIFont, item: (Int, Int)) -> UILabel {
+        let bandRangeLabel = UILabel()
+        bandRangeLabel.sizeToFit()
+        bandRangeLabel.text = "\(item.0) - \(item.1)"
+        bandRangeLabel.textColor = bandFontColor
+        bandRangeLabel.translatesAutoresizingMaskIntoConstraints = false
+        bandRangeLabel.font = bandLabelFont
+        return bandRangeLabel
+    }
+
 }
