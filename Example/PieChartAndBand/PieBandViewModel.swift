@@ -13,6 +13,7 @@ class PieBandViewModel {
         
     var dataModel = Observable<PieBandDataModel?>(value: nil)
     var bandDataArray = Observable<[(Int, Int)]>(value: [])
+    var bandPercentCoverage = Observable<[String]>(value: [])
     
     private let dataManager: DataManager
     init(dataManager: DataManager = DataManager()) {
@@ -27,6 +28,7 @@ class PieBandViewModel {
                 
                 if let meta = dataModel.standardMeta {
                     self.bandDataArray.value = meta.compactMap({ ($0.rangeStart ?? 0, $0.rangeEnd ?? 0) })
+                    self.bandPercentCoverage.value = meta.compactMap({ "\(String(describing: $0.percentCoverage ?? 0))%" })
                 }
             } else {
                 self.dataModel.value = nil

@@ -6,6 +6,7 @@
     {
       "rangeStart": 825,
       "rangeEnd": 900,
+      "percentCoverage": 19,
       "color": {
         "red":102,
         "green":204,
@@ -15,6 +16,7 @@
     {
       "rangeStart": 800,
       "rangeEnd": 824,
+      "percentCoverage": 20,
       "color": {
         "red":204,
         "green":204,
@@ -24,6 +26,7 @@
     {
       "rangeStart": 775,
       "rangeEnd": 799,
+      "percentCoverage": 21,
       "color": {
         "red":255,
         "green":128,
@@ -33,6 +36,7 @@
     {
       "rangeStart": 700,
       "rangeEnd": 774,
+      "percentCoverage": 21,
       "color": {
         "red":206,
         "green":103,
@@ -42,6 +46,7 @@
     {
       "rangeStart": 300,
       "rangeEnd": 699,
+      "percentCoverage": 19,
       "color": {
         "red":204,
         "green":0,

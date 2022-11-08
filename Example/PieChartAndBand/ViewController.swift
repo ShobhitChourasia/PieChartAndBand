@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     private var endValue = 0
     private var bandDataArray: [(Int, Int)] = []
     private var bandColorArray: [UIColor] = []
+    private var bandPercentCoverage: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,7 @@ private extension ViewModelHelper {
             self.endValue = pieBandDataModel?.endValue ?? 0
             self.bandColorArray = ColorMapper.getColorFromMeta(standardMeta: pieBandDataModel?.standardMeta)
             self.bandDataArray = self.viewModel.bandDataArray.value
+            self.bandPercentCoverage = self.viewModel.bandPercentCoverage.value
             DispatchQueue.main.async {
                 self.setupViews()
             }
@@ -83,7 +85,9 @@ private extension BandViewHelper {
         let bandView = BandView(frame: view.frame)
         bandView.highlightValue = highlightValue
         bandView.bandHighlightedValueImage = .init(named: "arrow_left_thick_medium")
-        bandView.createBands(bandDataArray: bandDataArray, bandColorArray: bandColorArray)
+        bandView.createBands(bandDataArray: bandDataArray,
+                             bandColorArray: bandColorArray,
+                             bandPercentCoverage: bandPercentCoverage)
         bandView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bandView)
         

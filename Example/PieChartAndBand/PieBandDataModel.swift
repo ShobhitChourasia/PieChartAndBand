@@ -16,7 +16,7 @@ struct PieBandDataModel: Codable {
 
 // MARK: - StandardMeta
 struct StandardMeta: Codable {
-    let rangeStart, rangeEnd: Int?
+    let rangeStart, rangeEnd, percentCoverage: Int?
     let color: BandColor?
 }
 
