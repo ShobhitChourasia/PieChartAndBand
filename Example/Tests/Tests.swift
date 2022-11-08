@@ -3,19 +3,41 @@ import PieChartAndBand
 
 class Tests: XCTestCase {
     
+    private var sut: PieBandViewModel?
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sut = PieBandViewModel(dataManager: DataManager())
+        sut?.getData()
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+    ///To check whether the response contains data
+    func testIfDataHasStartAndEndValues() {
+        guard let _ = sut?.dataModel.value?.startValue,
+              let _ = sut?.dataModel.value?.endValue else {
+            XCTAssert(false)
+            return
+        }
+        XCTAssert(true)
+    }
+    
+    ///To check whether the response contains valid data
+    func testIfInputModelIsValid() {
+        guard let startValue = sut?.dataModel.value?.startValue,
+              let endValue = sut?.dataModel.value?.endValue else {
+            XCTAssert(false)
+            return
+        }
+        if startValue < endValue {
+            XCTAssert(true)
+        } else {
+            XCTAssert(false)
+        }
     }
     
     func testPerformanceExample() {
