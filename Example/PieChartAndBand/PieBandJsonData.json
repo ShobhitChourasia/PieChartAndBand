@@ -1,0 +1,52 @@
+{
+  "startValue": 300,
+  "endValue": 900,
+  "creditScore": 700,
+  "standardMeta": [
+    {
+      "rangeStart": 825,
+      "rangeEnd": 900,
+      "color": {
+        "red":102,
+        "green":204,
+        "blue":0
+      }
+    },
+    {
+      "rangeStart": 800,
+      "rangeEnd": 824,
+      "color": {
+        "red":204,
+        "green":204,
+        "blue":0
+      }
+    },
+    {
+      "rangeStart": 775,
+      "rangeEnd": 799,
+      "color": {
+        "red":255,
+        "green":128,
+        "blue":0
+      }
+    },
+    {
+      "rangeStart": 700,
+      "rangeEnd": 774,
+      "color": {
+        "red":206,
+        "green":103,
+        "blue":0
+      }
+    },
+    {
+      "rangeStart": 300,
+      "rangeEnd": 699,
+      "color": {
+        "red":204,
+        "green":0,
+        "blue":0
+      }
+    }
+  ]
+}

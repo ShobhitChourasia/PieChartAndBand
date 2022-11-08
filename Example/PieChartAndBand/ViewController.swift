@@ -10,25 +10,46 @@ import PieChartAndBand
 
 class ViewController: UIViewController {
     
-    private let bandDataArray = [(825, 900),
-                                 (800, 824),
-                                 (775, 799),
-                                 (700, 774),
-                                 (300, 699)]
-    private let bandColorArray = [UIColor(red: 102/255, green: 204/255, blue: 0/255, alpha: 1.0),
-                                  UIColor(red: 204/255, green: 204/255, blue: 0/255, alpha: 1.0),
-                                  UIColor(red: 255/255, green: 128/255, blue: 0/255, alpha: 1.0),
-                                  UIColor(red: 206/255, green: 103/255, blue: 0/255, alpha: 1.0),
-                                  UIColor(red: 204/255, green: 0/255, blue: 0/255, alpha: 1.0)]
-    private let highlightValue = 860
+    private let viewModel = PieBandViewModel(dataManager: DataManager())
+    private var highlightValue = 0
+    private var startValue = 0
+    private var endValue = 0
+    private var bandDataArray: [(Int, Int)] = []
+    private var bandColorArray: [UIColor] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        viewModel.getData()
+        bindViewModelProps()
+    }
+    
+}
+
+private typealias ViewModelHelper = ViewController
+private extension ViewModelHelper {
+    
+    func bindViewModelProps() {
+        viewModel.dataModel.bind { [weak self] pieBandDataModel in
+            guard let self = self else { return }
+            self.highlightValue = pieBandDataModel?.creditScore ?? 0
+            self.startValue = pieBandDataModel?.startValue ?? 0
+            self.endValue = pieBandDataModel?.endValue ?? 0
+            self.bandColorArray = self.viewModel.bandColorArray.value
+            self.bandDataArray = self.viewModel.bandDataArray.value
+            DispatchQueue.main.async {
+                self.setupViews()
+            }
+        }
+    }
+}
+
+private extension ViewController {
+    
+    func setupViews() {
         createPieChartView()
         createBandView()
     }
-    
 }
 
 private typealias PieChartViewHelper = ViewController
@@ -41,8 +62,8 @@ private extension PieChartViewHelper {
         
         pieView.pieRadius = 150
         
-        pieView.startValue = 300
-        pieView.endValue = 900
+        pieView.startValue = startValue
+        pieView.endValue = endValue
         pieView.highlightValue = highlightValue
         
         pieView.createPie()
